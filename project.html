@@ -43,6 +43,7 @@
             <input type="number" id="guessInput" class="form-control form-control-lg">
             <button onclick="checkGuess()" class="btn btn-primary btn-lg mt-3">Submit</button>
             <p id="result" class="mbr-text mt-3"></p>
+            <p id="previousGuesses" class="mbr-text mt-3"></p>
           </div>
         </div>
       </div>
@@ -51,20 +52,27 @@
     <script>
       // Generate a random number between 1 and 100
       const targetNumber = Math.floor(Math.random() * 100) + 1;
+      let guesses = [];
   
       function checkGuess() {
         // Get the user's guess from the input field
         const guessInput = document.getElementById("guessInput");
         const guess = parseInt(guessInput.value);
   
+        // Add the guess to the list of previous guesses
+        guesses.push(guess);
+  
         // Check if the guess is correct, too low, or too high
         if (guess === targetNumber) {
-          displayResult("Congratulations! You guessed the correct number!");
+          displayResult(`Congratulations! You guessed the correct number in ${guesses.length} attempts!`);
         } else if (guess < targetNumber) {
           displayResult("Too low! Try a higher number.");
         } else {
           displayResult("Too high! Try a lower number.");
         }
+  
+        // Update the list of previous guesses
+        displayGuesses();
   
         // Clear the input field
         guessInput.value = "";
@@ -74,6 +82,12 @@
         // Display the result message
         const result = document.getElementById("result");
         result.innerHTML = message;
+      }
+  
+      function displayGuesses() {
+        // Display the list of previous guesses
+        const previousGuesses = document.getElementById("previousGuesses");
+        previousGuesses.innerHTML = `Previous guesses: ${guesses.join(", ")}`;
       }
     </script>
   
@@ -88,5 +102,4 @@
     <script src="assets/dropdown/js/navbar-dropdown.js"></script>
     <script src="assets/theme/js/script.js"></script>
 </body>
-  
 </html>
