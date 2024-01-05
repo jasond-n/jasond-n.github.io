@@ -58,7 +58,7 @@
         <div class="col-md-6 align-center" style="margin-top: 50px;">
           <h2 class="mbr-section-title mb-4 display-2">Guess the Number</h2>
           <p class="mbr-section-text mb-5 display-4">Guess a number between 1 and 100:</p>
-          <input type="number" id="guessInput" class="form-control form-control-lg">
+          <input type="number" id="guessInput" class="form-control form-control-lg" min="0">
           <button onclick="checkGuess()" class="btn btn-primary btn-lg mt-3">Submit</button>
           <p id="result" class="mbr-text mt-3"></p>
           <p id="previousGuesses" class="mbr-text mt-3"></p>
@@ -90,9 +90,9 @@
       const guessInput = document.getElementById("guessInput");
       const guess = parseInt(guessInput.value);
   
-      // Check if the guess is a valid number
-      if (isNaN(guess)) {
-        alert("Please enter a valid number.");
+      // Check if the guess is a valid number and not negative
+      if (isNaN(guess) || guess < 0) {
+        alert("Please enter a valid non-negative number.");
         return;
       }
   
@@ -101,7 +101,7 @@
   
       // Check if the guess is correct, too low, or too high
       if (guess === targetNumber) {
-        displayResult(`Congratulations! You guessed the correct number in ${guesses.length} attempts!`);
+        alert(`Congratulations! You guessed the correct number in ${guesses.length} attempts!`);
         // Start a new game
         startNewGame();
       } else if (guess < targetNumber) {
@@ -128,7 +128,7 @@
       const previousGuesses = document.getElementById("previousGuesses");
       previousGuesses.innerHTML = `Previous guesses: ${guesses.join(", ")}`;
     }
-  </script>  
+  </script>   
 
   <section class="display-7" style="padding: 0;align-items: center;justify-content: center;flex-wrap: wrap;align-content: center;display: flex;position: relative;height: 4rem;">
     <a href="https://mobiri.se/2866250" style="flex: 1 1;height: 4rem;position: absolute;width: 100%;z-index: 1;"><img alt="" style="height: 4rem;" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="></a>
